@@ -91,12 +91,12 @@ const Layout = ({ children, page }) => {
         }
         @media (min-width: 480px) {
           body {
-            background-image: url('/images/Background2x.jpg');
+            background-image: url('/images/Background@2x.jpg');
           }
         }
         @media (min-width: 960px) {
           body {
-            background-image: url('/images/Background4x.jpg');
+            background-image: url('/images/Background@4x.jpg');
           }
         }
       `}</style>
