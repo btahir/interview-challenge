@@ -1,8 +1,13 @@
 import { gql } from 'apollo-boost'
 
 export const EPOCHES_QUERY = gql`
-  query epoches($skip: Int) {
-    epoches(first: 3, orderBy: startBlock, orderDirection: asc, skip: $skip) {
+  query epoches($first: Int, $skip: Int, $orderBy: String, $orderDirection: String) {
+    epoches(
+      first: $first
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+      skip: $skip
+    ) {
       id
       startBlock
       endBlock

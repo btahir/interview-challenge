@@ -9,8 +9,8 @@ const Index = () => {
   const [tableData, setTableData] = useState([])
   const [recordsLoaded, setRecordsLoaded] = useState(3)
   console.log('fired')
-  const { data, loading, error, fetchMore } = useQuery(EPOCHES_QUERY, {
-    variables: { skip: 0 },
+  const { data, loading, error, fetchMore, refetch } = useQuery(EPOCHES_QUERY, {
+    variables: { first: 3, skip: 0, orderBy: 'startBlock', orderDirection: 'asc' },
   })
 
   useEffect(() => {
@@ -29,6 +29,10 @@ const Index = () => {
         return fetchMoreResult
       },
     })
+  }
+
+  function handleSort(sortField) {
+    refetch({ first: recordsLoaded, orderBy: sortField, orderDirection: 'desc' })
   }
 
   return (
@@ -64,23 +68,50 @@ const Index = () => {
             </Flex>
           </Box>
         </Flex>
-        <table style={{ marginTop: '20px', marginBottom: '40px' }}>
-          <tbody>
+        <table
+          style={{
+            marginTop: '20px',
+            marginBottom: '40px',
+            color: 'rgba(255,255,255,0.64)',
+            backgroundColor: 'rgba(12,10,29,0)',
+          }}
+        >
+          <thead>
             <tr
               style={{
-                textTransform: 'uppercase',
-                fontSize: '10px',
-                lineHeight: '12px',
-                letterSpacing: '1.2px',
                 height: '44px',
+                borderBottom: 'solid',
+                borderWidth: '1px',
               }}
             >
-              <th>Epoch</th>
+              <th>
+                <Button
+                  sx={{
+                    backgroundColor: 'transparent',
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontSize: '10px',
+                    lineHeight: '12px',
+                    letterSpacing: '1.2px',
+                    height: '12px',
+                    textTransform: 'uppercase',
+                  }}
+                  onClick={() => handleSort('id')}
+                >
+                  <span>Epoch</span>
+                  <Image
+                    src="/images/Direction-Down.svg"
+                    sx={{ ml: '2', height: '10px', width: '8px' }}
+                  />
+                </Button>
+              </th>
               <th>Start Block</th>
               <th>End Block</th>
               <th>Query Fees</th>
               <th>Total Rewards</th>
             </tr>
+          </thead>
+          <tbody>
             {tableData.map((item) => (
               <tr
                 key={item.id}
@@ -88,8 +119,6 @@ const Index = () => {
                   height: '64px',
                   fontSize: '16px',
                   lineHeight: '24px',
-                  backgroundColor: 'rgba(12,10,29,0)',
-                  color: 'rgba(255,255,255,0.64)',
                 }}
               >
                 <td>{item.id}</td>
@@ -131,6 +160,10 @@ const Index = () => {
               borderWidth: '1px',
               width: '142px',
               height: '48px',
+              fontSize: '14px',
+              fontWeight: '600',
+              lineHeight: '20px',
+              letterSpacing: '0.4px',
             }}
             onClick={handleLoadMore}
           >
