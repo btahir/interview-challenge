@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { withApollo } from '../apollo/client'
 import { EPOCHES_QUERY } from '../apollo/queries'
+import { formatNum } from '../utils/helpers'
 
 const Index = () => {
   const { data, loading, error } = useQuery(EPOCHES_QUERY)
@@ -78,8 +79,30 @@ const Index = () => {
                 <td>{item.id}</td>
                 <td>#{item.startBlock}</td>
                 <td>#{item.endBlock}</td>
-                <td>{item.queryFeesCollected}</td>
-                <td>{item.totalRewards}</td>
+                <td>
+                  {formatNum(item.queryFeesCollected)}
+                  <span
+                    style={{
+                      marginLeft: '4px',
+                      fontSize: '10px',
+                      height: '12px',
+                    }}
+                  >
+                    GRT
+                  </span>
+                </td>
+                <td>
+                  {formatNum(item.totalRewards)}
+                  <span
+                    style={{
+                      marginLeft: '4px',
+                      fontSize: '10px',
+                      height: '12px',
+                    }}
+                  >
+                    GRT
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>
