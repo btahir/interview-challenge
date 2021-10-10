@@ -4,6 +4,13 @@ import TableHeadingButton from './TableHeadingButton'
 
 function Table({ tableData, handleSort }) {
   const [activeColumn, setActiveColumn] = useState('startBlock')
+  const TABLE_HEADINGS = [
+    { id: 'id', title: 'Epoch' },
+    { id: 'startBlock', title: 'Start Block' },
+    { id: 'endBlock', title: 'End Block' },
+    { id: 'queryFeesCollected', title: 'Query Fees' },
+    { id: 'totalRewards', title: 'Total Rewards' },
+  ]
 
   return (
     <table
@@ -22,51 +29,17 @@ function Table({ tableData, handleSort }) {
             borderWidth: '1px',
           }}
         >
-          <th>
-            <TableHeadingButton
-              title="Epoch"
-              handleSort={handleSort}
-              orderByField="id"
-              activeColumn={activeColumn}
-              setActiveColumn={setActiveColumn}
-            />
-          </th>
-          <th>
-            <TableHeadingButton
-              title="Start Block"
-              handleSort={handleSort}
-              orderByField="startBlock"
-              activeColumn={activeColumn}
-              setActiveColumn={setActiveColumn}
-            />
-          </th>
-          <th>
-            <TableHeadingButton
-              title="End Block"
-              handleSort={handleSort}
-              orderByField="endBlock"
-              activeColumn={activeColumn}
-              setActiveColumn={setActiveColumn}
-            />
-          </th>
-          <th>
-            <TableHeadingButton
-              title="Query Fees"
-              handleSort={handleSort}
-              orderByField="queryFeesCollected"
-              activeColumn={activeColumn}
-              setActiveColumn={setActiveColumn}
-            />
-          </th>
-          <th>
-            <TableHeadingButton
-              title="Total Rewards"
-              handleSort={handleSort}
-              orderByField="totalRewards"
-              activeColumn={activeColumn}
-              setActiveColumn={setActiveColumn}
-            />
-          </th>
+          {TABLE_HEADINGS.map((item) => (
+            <th>
+              <TableHeadingButton
+                title={item.title}
+                handleSort={handleSort}
+                orderByField={item.id}
+                activeColumn={activeColumn}
+                setActiveColumn={setActiveColumn}
+              />
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
