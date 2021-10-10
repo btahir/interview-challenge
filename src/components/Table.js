@@ -30,7 +30,7 @@ function Table({ tableData, handleSort }) {
           }}
         >
           {TABLE_HEADINGS.map((item) => (
-            <th>
+            <th key={item.id}>
               <TableHeadingButton
                 title={item.title}
                 handleSort={handleSort}
@@ -55,6 +55,7 @@ function Table({ tableData, handleSort }) {
             <td
               style={{
                 color: activeColumn === 'id' ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
+                paddingLeft: '20px',
               }}
             >
               {item.id}
@@ -63,6 +64,7 @@ function Table({ tableData, handleSort }) {
               style={{
                 color:
                   activeColumn === 'startBlock' ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
+                paddingLeft: '12px',
               }}
             >
               #{item.startBlock}
@@ -70,6 +72,7 @@ function Table({ tableData, handleSort }) {
             <td
               style={{
                 color: activeColumn === 'endBlock' ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
+                paddingLeft: '12px',
               }}
             >
               #{item.endBlock}
@@ -80,6 +83,7 @@ function Table({ tableData, handleSort }) {
                   activeColumn === 'queryFeesCollected'
                     ? '#FFFFFF'
                     : 'rgba(255,255,255,0.64)',
+                paddingLeft: '20px',
               }}
             >
               {formatNum(item.queryFeesCollected)}
@@ -97,6 +101,7 @@ function Table({ tableData, handleSort }) {
               style={{
                 color:
                   activeColumn === 'totalRewards' ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
+                paddingLeft: '20px',
               }}
             >
               {formatNum(item.totalRewards)}
