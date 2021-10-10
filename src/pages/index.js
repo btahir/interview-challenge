@@ -6,12 +6,15 @@ import { EPOCHES_QUERY } from '../apollo/queries'
 import { formatNum } from '../utils/helpers'
 
 const Index = () => {
+  const [tableData, setTableData] = useState([])
+  const [recordsLoaded, setRecordsLoaded] = useState(3)
+  console.log('fired')
   const { data, loading, error, fetchMore } = useQuery(EPOCHES_QUERY, {
     variables: { skip: 0 },
   })
-  const [tableData, setTableData] = useState([])
 
   useEffect(() => {
+    console.log('data', data)
     if (data) {
       setTableData(data.epoches)
     }
@@ -19,10 +22,11 @@ const Index = () => {
 
   function handleLoadMore() {
     fetchMore({
-      variables: { skip: 3 },
+      variables: { skip: recordsLoaded },
       updateQuery: (prevResults, { fetchMoreResult }) => {
-        console.log('prevResults', prevResults)
-        console.log('fetchMoreResult', fetchMoreResult)
+        fetchMoreResult.epoches = [...prevResults.epoches, ...fetchMoreResult.epoches]
+        setRecordsLoaded(recordsLoaded + 3)
+        return fetchMoreResult
       },
     })
   }
@@ -119,12 +123,20 @@ const Index = () => {
             ))}
           </tbody>
         </table>
-        <Button
-          sx={{ backgroundColor: 'transparent', border: 'solid', borderWidth: '1px' }}
-          onClick={handleLoadMore}
-        >
-          Load More
-        </Button>
+        <Box sx={{ width: '100%', textAlign: 'center' }}>
+          <Button
+            sx={{
+              backgroundColor: 'transparent',
+              border: 'solid',
+              borderWidth: '1px',
+              width: '142px',
+              height: '48px',
+            }}
+            onClick={handleLoadMore}
+          >
+            Load More
+          </Button>
+        </Box>
       </Box>
     </Box>
   )
