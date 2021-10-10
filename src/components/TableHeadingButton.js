@@ -1,10 +1,38 @@
+import { useState } from 'react'
 import { Button, Image } from 'theme-ui'
 
-function TableHeadingButton({ handleSort }) {
+function TableHeadingButton({
+  title,
+  orderByField,
+  handleSort,
+  activeColumn,
+  setActiveColumn,
+}) {
+  const [orderByDirection, setOrderByDirection] = useState('asc')
+  const [imgSrc, setImgSrc] = useState('/images/Direction-Down.svg')
+  const [hoverOpacity, setHoverOpacity] = useState(0)
+
+  const finalOpacity = hoverOpacity || activeColumn === orderByField ? 1 : 0
+
+  function handleClick() {
+    setActiveColumn(orderByField)
+    handleSort(orderByField, orderByDirection)
+    if (orderByDirection === 'asc') {
+      setOrderByDirection('desc')
+      setImgSrc('/images/Direction-Down.svg')
+    } else {
+      setOrderByDirection('asc')
+      setImgSrc('/images/Direction-Up.svg')
+    }
+  }
+
   return (
     <Button
+      onMouseEnter={() => setHoverOpacity(1)}
+      onMouseLeave={() => setHoverOpacity(0)}
       sx={{
         backgroundColor: 'transparent',
+        color: activeColumn === orderByField ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
         display: 'flex',
         alignItems: 'center',
         fontSize: '10px',
@@ -13,12 +41,12 @@ function TableHeadingButton({ handleSort }) {
         height: '12px',
         textTransform: 'uppercase',
       }}
-      onClick={() => handleSort('id')}
+      onClick={handleClick}
     >
-      <span>Epoch</span>
+      <span>{title}</span>
       <Image
-        src="/images/Direction-Down.svg"
-        sx={{ ml: '2', height: '10px', width: '8px' }}
+        src={imgSrc}
+        sx={{ ml: '2', height: '10px', width: '8px', opacity: finalOpacity }}
       />
     </Button>
   )

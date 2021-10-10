@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import { formatNum } from '../utils/helpers'
 import TableHeadingButton from './TableHeadingButton'
 
 function Table({ tableData, handleSort }) {
+  const [activeColumn, setActiveColumn] = useState('startBlock')
+
   return (
     <table
       style={{
@@ -20,12 +23,50 @@ function Table({ tableData, handleSort }) {
           }}
         >
           <th>
-            <TableHeadingButton handleSort={handleSort} />
+            <TableHeadingButton
+              title="Epoch"
+              handleSort={handleSort}
+              orderByField="id"
+              activeColumn={activeColumn}
+              setActiveColumn={setActiveColumn}
+            />
           </th>
-          <th>Start Block</th>
-          <th>End Block</th>
-          <th>Query Fees</th>
-          <th>Total Rewards</th>
+          <th>
+            <TableHeadingButton
+              title="Start Block"
+              handleSort={handleSort}
+              orderByField="startBlock"
+              activeColumn={activeColumn}
+              setActiveColumn={setActiveColumn}
+            />
+          </th>
+          <th>
+            <TableHeadingButton
+              title="End Block"
+              handleSort={handleSort}
+              orderByField="endBlock"
+              activeColumn={activeColumn}
+              setActiveColumn={setActiveColumn}
+            />
+          </th>
+          <th>
+            <TableHeadingButton
+              title="Query Fees"
+              handleSort={handleSort}
+              orderByField="queryFeesCollected"
+              activeColumn={activeColumn}
+              setActiveColumn={setActiveColumn}
+            />
+          </th>
+          <th>
+            <TableHeadingButton
+              title="Total Rewards"
+              handleSort={handleSort}
+              orderByField="totalRewards"
+              activeColumn={activeColumn}
+              setActiveColumn={setActiveColumn}
+            />
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -38,10 +79,36 @@ function Table({ tableData, handleSort }) {
               lineHeight: '24px',
             }}
           >
-            <td>{item.id}</td>
-            <td>#{item.startBlock}</td>
-            <td>#{item.endBlock}</td>
-            <td>
+            <td
+              style={{
+                color: activeColumn === 'id' ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
+              }}
+            >
+              {item.id}
+            </td>
+            <td
+              style={{
+                color:
+                  activeColumn === 'startBlock' ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
+              }}
+            >
+              #{item.startBlock}
+            </td>
+            <td
+              style={{
+                color: activeColumn === 'endBlock' ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
+              }}
+            >
+              #{item.endBlock}
+            </td>
+            <td
+              style={{
+                color:
+                  activeColumn === 'queryFeesCollected'
+                    ? '#FFFFFF'
+                    : 'rgba(255,255,255,0.64)',
+              }}
+            >
               {formatNum(item.queryFeesCollected)}
               <span
                 style={{
@@ -53,7 +120,12 @@ function Table({ tableData, handleSort }) {
                 GRT
               </span>
             </td>
-            <td>
+            <td
+              style={{
+                color:
+                  activeColumn === 'totalRewards' ? '#FFFFFF' : 'rgba(255,255,255,0.64)',
+              }}
+            >
               {formatNum(item.totalRewards)}
               <span
                 style={{

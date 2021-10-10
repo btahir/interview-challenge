@@ -33,8 +33,12 @@ const Index = () => {
     })
   }
 
-  function handleSort(sortField) {
-    refetch({ first: recordsLoaded, orderBy: sortField, orderDirection: 'desc' })
+  function handleSort(sortField, orderByDirection) {
+    refetch({
+      first: recordsLoaded,
+      orderBy: sortField,
+      orderDirection: orderByDirection,
+    })
   }
 
   return (
