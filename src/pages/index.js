@@ -1,4 +1,4 @@
-import { Box, Image, Flex, Divider } from 'theme-ui'
+import { Box, Image, Flex, Divider, Button } from 'theme-ui'
 import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { withApollo } from '../apollo/client'
@@ -6,7 +6,9 @@ import { EPOCHES_QUERY } from '../apollo/queries'
 import { formatNum } from '../utils/helpers'
 
 const Index = () => {
-  const { data, loading, error } = useQuery(EPOCHES_QUERY)
+  const { data, loading, error, fetchMore } = useQuery(EPOCHES_QUERY, {
+    variables: { skip: 0 },
+  })
   const [tableData, setTableData] = useState([])
 
   useEffect(() => {
@@ -14,6 +16,16 @@ const Index = () => {
       setTableData(data.epoches)
     }
   })
+
+  function handleLoadMore() {
+    fetchMore({
+      variables: { skip: 3 },
+      updateQuery: (prevResults, { fetchMoreResult }) => {
+        console.log('prevResults', prevResults)
+        console.log('fetchMoreResult', fetchMoreResult)
+      },
+    })
+  }
 
   return (
     <Box
@@ -48,7 +60,7 @@ const Index = () => {
             </Flex>
           </Box>
         </Flex>
-        <table style={{ marginTop: '20px' }}>
+        <table style={{ marginTop: '20px', marginBottom: '40px' }}>
           <tbody>
             <tr
               style={{
@@ -107,6 +119,12 @@ const Index = () => {
             ))}
           </tbody>
         </table>
+        <Button
+          sx={{ backgroundColor: 'transparent', border: 'solid', borderWidth: '1px' }}
+          onClick={handleLoadMore}
+        >
+          Load More
+        </Button>
       </Box>
     </Box>
   )
