@@ -1,4 +1,4 @@
-import { Box, Image, Flex, Divider, Button } from 'theme-ui'
+import { Box } from 'theme-ui'
 import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { withApollo } from '../apollo/client'

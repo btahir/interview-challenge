@@ -50,6 +50,9 @@ function Table({ tableData, handleSort }) {
               height: '64px',
               fontSize: '16px',
               lineHeight: '24px',
+              borderBottom: 'solid',
+              borderWidth: '1px',
+              borderColor: 'rgba(255,255,255,0.04)',
             }}
           >
             <td
