@@ -10,7 +10,7 @@ import LoadMoreButton from '../components/LoadMoreButton'
 const Index = () => {
   const [tableData, setTableData] = useState([])
   const [recordsLoaded, setRecordsLoaded] = useState(3)
-  const { data, loading, error, fetchMore, refetch } = useQuery(EPOCHES_QUERY, {
+  const { data, fetchMore, refetch } = useQuery(EPOCHES_QUERY, {
     variables: {
       first: 3,
       skip: 0,
