@@ -12,7 +12,13 @@ const Index = () => {
   const [recordsLoaded, setRecordsLoaded] = useState(3)
   console.log('fired')
   const { data, loading, error, fetchMore, refetch } = useQuery(EPOCHES_QUERY, {
-    variables: { first: 3, skip: 0, orderBy: 'startBlock', orderDirection: 'asc' },
+    variables: {
+      first: 3,
+      skip: 0,
+      orderBy: 'startBlock',
+      orderDirection: 'asc',
+      where: {},
+    },
   })
 
   useEffect(() => {
@@ -41,6 +47,18 @@ const Index = () => {
     })
   }
 
+  function handleSearch(searchedBlock) {
+    if (searchedBlock === '') {
+      refetch({
+        where: {},
+      })
+    } else {
+      refetch({
+        where: { startBlock: parseInt(searchedBlock) },
+      })
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -55,7 +73,7 @@ const Index = () => {
           width: '90%',
         }}
       >
-        <Heading />
+        <Heading handleSearch={handleSearch} />
         <Table tableData={tableData} handleSort={handleSort} />
         <LoadMoreButton handleLoadMore={handleLoadMore} />
       </Box>
