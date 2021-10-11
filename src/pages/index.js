@@ -10,7 +10,6 @@ import LoadMoreButton from '../components/LoadMoreButton'
 const Index = () => {
   const [tableData, setTableData] = useState([])
   const [recordsLoaded, setRecordsLoaded] = useState(3)
-  console.log('fired')
   const { data, loading, error, fetchMore, refetch } = useQuery(EPOCHES_QUERY, {
     variables: {
       first: 3,
@@ -22,7 +21,6 @@ const Index = () => {
   })
 
   useEffect(() => {
-    console.log('data', data)
     if (data) {
       setTableData(data.epoches)
     }

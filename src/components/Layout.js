@@ -89,6 +89,16 @@ const Layout = ({ children, page }) => {
         table {
           width: 100%;
         }
+        ::placeholder {
+          color: rgba(255, 255, 255, 0.48);
+          opacity: 1;
+          height: 20px;
+          width: 47px;
+          color: rgba(255, 255, 255, 0.48);
+          font-size: 14px;
+          letter-spacing: 0;
+          line-height: 20px;
+        }
         @media (min-width: 480px) {
           body {
             background-image: url('/images/Background@2x.jpg');

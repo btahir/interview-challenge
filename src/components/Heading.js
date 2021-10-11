@@ -20,7 +20,7 @@ function Heading({ handleSearch }) {
           <Input
             defaultValue=""
             placeholder="Search"
-            sx={{ border: 'none', color: '#fff' }}
+            sx={{ border: 'none', color: '#fff', paddingLeft: '4px' }}
             onChange={(e) => handleSearch(e.target.value)}
           />
         </Flex>
