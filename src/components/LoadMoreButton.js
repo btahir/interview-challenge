@@ -2,7 +2,7 @@ import { Box, Button } from 'theme-ui'
 
 function LoadMoreButton({ handleLoadMore }) {
   return (
-    <Box sx={{ width: '100%', textAlign: 'center' }}>
+    <Box sx={{ width: '100%', textAlign: 'center', marginTop: '12px' }}>
       <Button
         sx={{
           backgroundColor: 'transparent',

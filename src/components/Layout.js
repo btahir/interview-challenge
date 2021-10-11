@@ -99,12 +99,12 @@ const Layout = ({ children, page }) => {
           letter-spacing: 0;
           line-height: 20px;
         }
-        @media (min-width: 480px) {
+        @media (min-width: 1024px) {
           body {
             background-image: url('/images/Background@2x.jpg');
           }
         }
-        @media (min-width: 960px) {
+        @media (min-width: 1536px) {
           body {
             background-image: url('/images/Background@4x.jpg');
           }
